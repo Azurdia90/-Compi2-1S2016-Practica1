@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Irony.Parsing;    //libreria obligatorias de importar
 using Irony.Ast;        //libreria obligatoria de importar
+using System.Collections;
 
 namespace _Compi2_Practica1_201020331
 {
@@ -12,16 +13,15 @@ namespace _Compi2_Practica1_201020331
     {
         public Gramatica()
         {
+            
             //1. TERMINALES
-
             //Terminales Definidos en base a expresiones regulares
             IdentifierTerminal iden = new IdentifierTerminal("id");
             StringLiteral cadena = new StringLiteral("cadena", "\"");
             RegexBasedTerminal caracter = new RegexBasedTerminal("cadena", "\"[^\020\013\010\009\042]\"");
             RegexBasedTerminal rango1 = new RegexBasedTerminal("rango1", "([^\020\013\010\009]|[0-9]+)~([^\020\013\010\009]|[0-9]+)");
             RegexBasedTerminal rango2 = new RegexBasedTerminal("rango2", "([^\020\013\010\009]|[0-9]+)(,([^\020\013\010\009]|[0-9]+))+");
-            
-
+            //Terminales definidos de manera especifica
             var inicio_fin = ToTerm("%%");
             var s_apuntar = ToTerm("->");
             var s_colon = ToTerm(":");
@@ -52,27 +52,24 @@ namespace _Compi2_Practica1_201020331
             var r_all = ToTerm("[:Todo:]");
             var r_white = ToTerm("[:Blanco:]");
             
-
-
             //2. NO TERMINALES
-            NonTerminal S0 = new NonTerminal("S0");
-            NonTerminal LENGUAJE = new NonTerminal("LENGUAJE");
-            NonTerminal SENTENCIAS = new NonTerminal("SENTENCIAS");
-            NonTerminal SENTENCIA = new NonTerminal("SETENCIA");
-            NonTerminal CONJUNTO = new NonTerminal("CONJUNTO");
-            NonTerminal EXPRESIONES = new NonTerminal("EXPRESIONES");
-            NonTerminal EXPRESION = new NonTerminal("EXPRESION");
-            NonTerminal RANGO2 = new NonTerminal("RANGO2");
-            NonTerminal ER = new NonTerminal("ER");
-            NonTerminal ER2 = new NonTerminal("ER2");
-            NonTerminal ER3 = new NonTerminal("ER3");
-            NonTerminal ID = new NonTerminal("ER3");
-            NonTerminal RETURN = new NonTerminal("RETURN");
-            NonTerminal RETURN2 = new NonTerminal("RETURN2");
-            NonTerminal RETURN3 = new NonTerminal("RETURN3");
-            NonTerminal RESERV = new NonTerminal("RESERV");
-            NonTerminal RESERV2 = new NonTerminal("RESERV");
-            NonTerminal RESERV3 = new NonTerminal("RESERV");
+            NonTerminal S0 = new NonTerminal("S0",typeof(Core));
+            NonTerminal LENGUAJE = new NonTerminal("LENGUAJE",typeof(Core));
+            NonTerminal SENTENCIAS = new NonTerminal("SENTENCIAS",typeof(Core));
+            NonTerminal SENTENCIA = new NonTerminal("SETENCIA",typeof(Core));
+            NonTerminal CONJUNTO = new NonTerminal("CONJUNTO",typeof(Core));
+            NonTerminal EXPRESIONES = new NonTerminal("EXPRESIONES",typeof(Core));
+            NonTerminal EXPRESION = new NonTerminal("EXPRESION",typeof(Core));
+            NonTerminal ER = new NonTerminal("ER",typeof(String));
+            NonTerminal ER2 = new NonTerminal("ER2",typeof(String));
+            NonTerminal ER3 = new NonTerminal("ER3",typeof(String));
+            NonTerminal ID = new NonTerminal("ER3",typeof(String));
+            NonTerminal RETURN = new NonTerminal("RETURN",typeof(ER));
+            NonTerminal RETURN2 = new NonTerminal("RETURN2",typeof(ArrayList));
+            NonTerminal RETURN3 = new NonTerminal("RETURN3",typeof(String));
+            NonTerminal RESERV = new NonTerminal("RESERV",typeof(Core));
+            NonTerminal RESERV2 = new NonTerminal("RESERV",typeof(Core));
+            NonTerminal RESERV3 = new NonTerminal("RESERV",typeof(Core));
 
             //3. PRECEDENCIA DE OPERADORES
 
@@ -83,7 +80,7 @@ namespace _Compi2_Practica1_201020331
 
             LENGUAJE.Rule = inicio_fin + SENTENCIAS + inicio_fin;
 
-            SENTENCIAS.Rule = MakePlusRule(SENTENCIAS, SENTENCIA);
+            SENTENCIAS.Rule = MakePlusRule(SENTENCIAS, SENTENCIA); 
 
             SENTENCIA.Rule = CONJUNTO
                             | EXPRESION;
@@ -91,8 +88,8 @@ namespace _Compi2_Practica1_201020331
             CONJUNTO.Rule = r_conj + s_colon + iden + s_apuntar + rango1 + s_semicolon
                            | r_conj + s_colon + iden + s_apuntar + rango2 + s_semicolon;
                            
-            EXPRESION.Rule = iden + s_apuntar + ER + s_apuntar + RETURN  + s_semicolon
-                            |iden + s_apuntar + ER + s_apuntar + RETURN + s_apuntar+ RESERV + s_semicolon ;
+            EXPRESION.Rule = iden + s_apuntar + ER + s_apuntar + RETURN + s_semicolon
+                            | iden + s_apuntar + ER + s_apuntar + RETURN + s_apuntar+ RESERV + s_semicolon ;
 
             ER.Rule = ER2
                       | ER3

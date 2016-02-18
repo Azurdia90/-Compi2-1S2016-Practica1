@@ -15,7 +15,7 @@ namespace _Compi2_Practica1_201020331
 {
     public partial class Form1 : Form
     {
-
+        Analizador analizador;
         public Form1()
         {
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace _Compi2_Practica1_201020331
             if(!this.rTB_Cargar.Text.Equals(""))
             {
                 String cadena_salida = "";
-                Analizador analizador = new Analizador(new Gramatica());
+                analizador = new Analizador(new Gramatica());
                 try
                 {
                     cadena_salida = analizador.parse(this.rTB_Cargar.Text, new Accion_Arbol()).ToString();
