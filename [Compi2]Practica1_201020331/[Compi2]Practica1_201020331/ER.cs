@@ -52,6 +52,7 @@ namespace _Compi2_Practica1_201020331
         {
             this.expresion = e;
         }
+
         public bool getId()
         {
             return this.id;

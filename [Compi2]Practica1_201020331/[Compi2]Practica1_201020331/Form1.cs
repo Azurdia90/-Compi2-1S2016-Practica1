@@ -16,6 +16,7 @@ namespace _Compi2_Practica1_201020331
     public partial class Form1 : Form
     {
         Analizador analizador;
+        //Core salida;
         public Form1()
         {
             InitializeComponent();
@@ -43,19 +44,21 @@ namespace _Compi2_Practica1_201020331
 
         private void b_Cargar_Click(object sender, EventArgs e)
         {
-            if(!this.rTB_Cargar.Text.Equals(""))
+            if (!this.rTB_Cargar.Text.Equals(""))
             {
                 String cadena_salida = "";
+
                 analizador = new Analizador(new Gramatica());
                 try
                 {
-                    cadena_salida = analizador.parse(this.rTB_Cargar.Text, new Accion_Arbol()).ToString();
+                    analizador.parse(rTB_Cargar.Text, new Accion_Arbol());
+                    cadena_salida = "Archivo Aceptado";
                 }
-                catch 
+                catch
                 {
                     cadena_salida = "error";
                 }
-                
+
                 MessageBox.Show(cadena_salida);
             }
             else

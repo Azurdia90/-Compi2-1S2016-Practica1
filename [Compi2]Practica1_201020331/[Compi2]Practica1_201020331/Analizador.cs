@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Irony.Parsing;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Irony.Ast;
-using Irony.Parsing;
-using System.Diagnostics;
 
 namespace _Compi2_Practica1_201020331
 {
@@ -36,7 +35,6 @@ namespace _Compi2_Practica1_201020331
             }
             return null;
         }
-
         private class ActionMaker
         {
             private ParseTreeNode root;
@@ -62,18 +60,19 @@ namespace _Compi2_Practica1_201020331
                 escribir.Close();
                 generar_arbol();
             }
+
             public void graficar_arbol(ParseTreeNode pt_root)
             {
-                if(pt_root != null)
+                if (pt_root != null)
                 {
-                    escribir.Write(pt_root.GetHashCode()+"[shape = ellipse ,label=\""+ pt_root.Term.Name.ToString()+"\"];\n");
+                    escribir.Write(pt_root.GetHashCode() + "[shape = ellipse ,label=\"" + pt_root.Term.Name.ToString() + "\"];\n");
                     if (pt_root.ChildNodes.Count > 0)
                     {
                         ParseTreeNode[] hijos = pt_root.ChildNodes.ToArray();
                         for (int cont = 0; cont < pt_root.ChildNodes.Count; cont++)
                         {
                             graficar_arbol(hijos[cont]);
-                            escribir.Write(pt_root.GetHashCode() + "->"+hijos[cont].GetHashCode() + ";\n");
+                            escribir.Write(pt_root.GetHashCode() + "->" + hijos[cont].GetHashCode() + ";\n");
                         }
                     }
 
@@ -93,5 +92,6 @@ namespace _Compi2_Practica1_201020331
                 }
             }
         }
+
     }
 }

@@ -16,9 +16,9 @@ namespace _Compi2_Practica1_201020331
             
             //1. TERMINALES
             //Terminales Definidos en base a expresiones regulares
-            IdentifierTerminal iden = new IdentifierTerminal("id");
+            IdentifierTerminal iden = new IdentifierTerminal("iden");
             StringLiteral cadena = new StringLiteral("cadena", "\"");
-            RegexBasedTerminal caracter = new RegexBasedTerminal("cadena", "\"[^\020\013\010\009\042]\"");
+            RegexBasedTerminal caracter = new RegexBasedTerminal("caracter", "\"[^\020\013\010\009\042]\"");
             RegexBasedTerminal rango1 = new RegexBasedTerminal("rango1", "([^\020\013\010\009]|[0-9]+)~([^\020\013\010\009]|[0-9]+)");
             RegexBasedTerminal rango2 = new RegexBasedTerminal("rango2", "([^\020\013\010\009]|[0-9]+)(,([^\020\013\010\009]|[0-9]+))+");
             //Terminales definidos de manera especifica
@@ -30,6 +30,12 @@ namespace _Compi2_Practica1_201020331
             var s_sum = ToTerm("+");
             var s_ques = ToTerm("?");
             var s_dot = ToTerm(".");
+            var s_enter = ToTerm("\n");
+            var s_quo = ToTerm("\'");
+            var s_doquo = ToTerm("\"");
+            var s_tab = ToTerm("\t");
+            var s_white = ToTerm("[:blanco:]");
+            var s_all = ToTerm("[todo:]");
             var s_par_a = ToTerm("(");
             var s_par_c = ToTerm(")");
             var s_key_a = ToTerm("[");
@@ -53,23 +59,23 @@ namespace _Compi2_Practica1_201020331
             var r_white = ToTerm("[:Blanco:]");
             
             //2. NO TERMINALES
-            NonTerminal S0 = new NonTerminal("S0",typeof(Core));
-            NonTerminal LENGUAJE = new NonTerminal("LENGUAJE",typeof(Core));
-            NonTerminal SENTENCIAS = new NonTerminal("SENTENCIAS",typeof(Core));
-            NonTerminal SENTENCIA = new NonTerminal("SETENCIA",typeof(Core));
-            NonTerminal CONJUNTO = new NonTerminal("CONJUNTO",typeof(Core));
-            NonTerminal EXPRESIONES = new NonTerminal("EXPRESIONES",typeof(Core));
-            NonTerminal EXPRESION = new NonTerminal("EXPRESION",typeof(Core));
-            NonTerminal ER = new NonTerminal("ER",typeof(String));
-            NonTerminal ER2 = new NonTerminal("ER2",typeof(String));
-            NonTerminal ER3 = new NonTerminal("ER3",typeof(String));
-            NonTerminal ID = new NonTerminal("ER3",typeof(String));
-            NonTerminal RETURN = new NonTerminal("RETURN",typeof(ER));
-            NonTerminal RETURN2 = new NonTerminal("RETURN2",typeof(ArrayList));
-            NonTerminal RETURN3 = new NonTerminal("RETURN3",typeof(String));
-            NonTerminal RESERV = new NonTerminal("RESERV",typeof(Core));
-            NonTerminal RESERV2 = new NonTerminal("RESERV",typeof(Core));
-            NonTerminal RESERV3 = new NonTerminal("RESERV",typeof(Core));
+            NonTerminal S0 = new NonTerminal("S0");
+            NonTerminal LENGUAJE = new NonTerminal("LENGUAJE");
+            NonTerminal SENTENCIAS = new NonTerminal("SENTENCIAS");
+            NonTerminal SENTENCIA = new NonTerminal("SENTENCIA");
+            NonTerminal CONJUNTO = new NonTerminal("CONJUNTO");
+            NonTerminal EXPRESIONES = new NonTerminal("EXPRESIONES");
+            NonTerminal EXPRESION = new NonTerminal("EXPRESION");
+            NonTerminal ER = new NonTerminal("ER");
+            NonTerminal ER2 = new NonTerminal("ER2");
+            NonTerminal ER3 = new NonTerminal("ER3");
+            NonTerminal ID = new NonTerminal("ID");
+            NonTerminal RETURN = new NonTerminal("RETURN");
+            NonTerminal RETURN2 = new NonTerminal("RETURN2");
+            NonTerminal RETURN3 = new NonTerminal("RETURN3");
+            NonTerminal RESERV = new NonTerminal("RESERV");
+            NonTerminal RESERV2 = new NonTerminal("RESERV");
+            NonTerminal RESERV3 = new NonTerminal("RESERV");
 
             //3. PRECEDENCIA DE OPERADORES
 
@@ -128,6 +134,7 @@ namespace _Compi2_Practica1_201020331
             RESERV3.Rule = cadena + s_apuntar + RETURN + s_semicolon;
 
             this.Root = S0;
+            //this.MarkTransient(SENTENCIAS);
         }
     }
 }
