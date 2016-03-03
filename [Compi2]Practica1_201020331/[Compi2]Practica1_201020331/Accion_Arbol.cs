@@ -10,7 +10,9 @@ namespace _Compi2_Practica1_201020331
 {
     class Accion_Arbol : Accion
     {
+        int cont;
         Core core;
+        AFND nuevo_afnd;
         String exp;
         ER nueva_expresion;
         Conjunto nuevo_conjunto;
@@ -28,8 +30,9 @@ namespace _Compi2_Practica1_201020331
                 {
                         if(node.ChildNodes.Count == 1)
                         {
-                            core = new Core();
                             //System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString());
+                            cont = 0;
+                            core = new Core();
                             result = action(node.ChildNodes[0]);
                         }
                         break;
@@ -69,30 +72,44 @@ namespace _Compi2_Practica1_201020331
                             //System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString());
                             nuevo_conjunto = new Conjunto();
                             nuevo_conjunto.setNombre(node.ChildNodes[2].Token.Value.ToString());
+                            //System.Windows.Forms.MessageBox.Show(node.ChildNodes[]);
                             core.getListaConjuntos().Add(nuevo_conjunto);
+
                         }
                         break;
                     }
                 case "EXPRESION":
                     {
-                        if(node.ChildNodes.Count == 6)
+                        if (node.ChildNodes.Count == 6)
                         {
                             //System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString());
+                            cont++;
                             nueva_expresion = new ER();
+                            nuevo_afnd = new AFND(cont);
                             nueva_expresion.setNombre(node.ChildNodes[0].Token.Value.ToString());
                             nueva_expresion.setExpresion((action(node.ChildNodes[2]).ToString()));
+                            nuevo_afnd.graficar_AFND();
+                            System.Windows.Forms.MessageBox.Show(nueva_expresion.getExpresion());
+                            core.getListaExpresiones().Add(nueva_expresion);
+                            core.ModListaAFND.Add(nuevo_afnd);
                             result = action(node.ChildNodes[4]);
-                            core.getListaExpresiones().Add(nueva_expresion);     
+   
                         }
                         if(node.ChildNodes.Count == 8)
                         {
-                            System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString());
+                            //System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString() + "2");
+                            cont++;
                             nueva_expresion = new ER();
+                            nuevo_afnd = new AFND(cont);
                             nueva_expresion.setNombre(node.ChildNodes[0].Token.Value.ToString());
-                            nueva_expresion.setNombre((action(node.ChildNodes[2]).ToString()));
+                            nueva_expresion.setExpresion((action(node.ChildNodes[2]).ToString()));
+                            nuevo_afnd.graficar_AFND();
+                            System.Windows.Forms.MessageBox.Show(nueva_expresion.getExpresion());
+                            core.getListaExpresiones().Add(nueva_expresion);
+                            core.ModListaAFND.Add(nuevo_afnd);
                             result = action(node.ChildNodes[4]);
                             result = action(node.ChildNodes[6]);
-                            core.getListaExpresiones().Add(nueva_expresion);
+
                         }
                         break;
                     }
@@ -108,6 +125,7 @@ namespace _Compi2_Practica1_201020331
                 case "ER2":
                     {
                         //System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString());
+                        //nuevo_afnd.agregar_operacion(action(node.ChildNodes[0]).ToString(), action(node.ChildNodes[2]).ToString(), node.ChildNodes[2].Token.Value.ToString());
                         exp = "(" + action(node.ChildNodes[0]).ToString() + ")" + node.ChildNodes[2].Token.Value.ToString() + "("+action(node.ChildNodes[1]).ToString()+")";
                         result = exp;
                         break;
@@ -117,6 +135,7 @@ namespace _Compi2_Practica1_201020331
                         if(node.ChildNodes.Count == 2)
                         {
                             //System.Windows.Forms.MessageBox.Show(node.Term.Name.ToString());
+                            nuevo_afnd.agregar_operacion(action(node.ChildNodes[0]).ToString(), node.ChildNodes[1].Token.Value.ToString());
                             exp = "(" + action(node.ChildNodes[0]).ToString() + ")" + node.ChildNodes[1].Token.Value.ToString();
                             result = exp;
                         }
@@ -143,13 +162,13 @@ namespace _Compi2_Practica1_201020331
                     }
                 case "RETURN2":
                     { 
-                    MessageBox.Show("RETURN2 TIENE " + node.ChildNodes.Count + " hijos");
-                    int cont = 0;
-                    for (cont = 0; cont < node.ChildNodes.Count; cont++)
-                    {
-                        result = action(node.ChildNodes[cont]);
-                    }
-                    break;
+                        //MessageBox.Show("RETURN2 TIENE " + node.ChildNodes.Count + " hijos");
+                        int cont = 0;
+                        for (cont = 0; cont < node.ChildNodes.Count; cont++)
+                        {
+                            result = action(node.ChildNodes[cont]);
+                        }
+                        break;
                     }
                 case "RETURN3":
                     {

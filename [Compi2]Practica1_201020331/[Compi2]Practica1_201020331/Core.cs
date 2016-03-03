@@ -11,11 +11,12 @@ namespace _Compi2_Practica1_201020331
     {
         private ArrayList lista_conjuntos;
         private ArrayList lista_expresiones;
-
+        private ArrayList lista_afnd;
         public Core()
         {
             lista_conjuntos = new ArrayList();
             lista_expresiones = new ArrayList();
+            lista_afnd = new ArrayList();
         }
 
         public Core(ArrayList l1, ArrayList l2)
@@ -34,5 +35,10 @@ namespace _Compi2_Practica1_201020331
             return this.lista_expresiones;
         }
 
+        public ArrayList ModListaAFND
+        {
+            get { return this.lista_afnd; }
+            set { this.lista_afnd = value; }
+        }
     }
 }

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Accion.cs" />
     <Compile Include="Accion_Arbol.cs" />
+    <Compile Include="AFND.cs" />
     <Compile Include="Analizador.cs" />
     <Compile Include="Conjunto.cs" />
     <Compile Include="Core.cs" />
@@ -65,6 +66,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Gramatica.cs" />
+    <Compile Include="Nodo_AFND.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

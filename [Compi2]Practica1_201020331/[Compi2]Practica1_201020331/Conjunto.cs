@@ -35,9 +35,13 @@ namespace _Compi2_Practica1_201020331
         {
             return this.conjunto;
         }
-        public void setConjunto(ArrayList a)
+        public void setConjunto1(String a)
         {
-            this.conjunto = a;
+            
+        }
+        public void setConjunto2(String a)
+        {
+
         }
         public void rango1(String r)
         {
